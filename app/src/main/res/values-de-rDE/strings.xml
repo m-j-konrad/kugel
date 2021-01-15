@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Kugel</string>
+    <string name="inputPlayerName">Player One</string>
+    <string name="lblGameTitle">Kugel</string>
+    <string name="btnInfo">Info</string>
+    <string name="btnQuit">Beenden</string>
+    <string name="btnStart">Spiel starten</string>
+    <string name="imgTitleKugel">Titelkugel</string>
+    <string name="imgBackground">Hintergrundbild</string>
+    <string name="timePlaying">Zeit</string>
+    <string name="playerScore">Punkte</string>
+    <string name="congratulations">Herzlichen Glückwunsch!</string>
+    <string name="youHave_POINTS">Du hast</string>
+    <string name="points">Punkte!</string>
+    <string name="level">Level</string>
+    <string name="remainingLifes">Leben</string>
+    <string name="messageInfo">Erdacht und programmiert von Marcel J. Konrad</string>
+    <string name="titlekugel">Titelkugel</string>
+    <string name="lblTapToPause">Tippe für Pause</string>
+    <string name="lblBestHighscore">Deine beste Punktzahl war bisher</string>
+    <string name="lblYouCanDoBetter">Das kannst du besser!</string>
+    <string name="lblNextLevel">Achtung! Nächster Ball</string>
+    <string name="infoMessage">Kugel - ein kleines Spiel\nerdacht und programmiert von M. J. Konrad\n\n
+        Zunächst möchte ich meiner Familie und meinen Freunden danken, die dieses Spiel geduldig und
+        gewissenhaft getestet haben.\n
+        Speziellen Dank natürlich an Ali, der mir geholfen hat, das Spiel in den PlayStore zu
+        bekommen!\n\n
+        Diese App ist frei (wie in `Freiheit`). Damit das so bleibt wird sie beschützt von der\n
+        GNU General Public License v.3.\nDu akzeptierst sie, wenn du spielst!\n\n
+        Und jetzt: Gebt euch die Kugel oder bleibt am Ball :-)\n\n\n
+Kugel Copyright © 2020 by Marcel Jérôme Konrad
+        \n You can find the sources at\n
+        https://github.com/m-j-konrad/kugel
+\n\n
+Dieses Programm ist freie Software. Sie können es unter den Bedingungen der GNU General Public License, wie von der Free Software Foundation veröffentlicht, weitergeben und/oder modifizieren, entweder gemäß Version 3 der Lizenz oder (nach Ihrer Option) jeder späteren Version.
+\n\n
+Die Veröffentlichung dieses Programms erfolgt in der Hoffnung, daß es Ihnen von Nutzen sein wird, aber OHNE IRGENDEINE GARANTIE, sogar ohne die implizite Garantie der MARKTREIFE oder der VERWENDBARKEIT FÜR EINEN BESTIMMTEN ZWECK. Details finden Sie in der GNU General Public License unter
+\nhttp://www.gnu.org/licenses/
+    </string>
+</resources>

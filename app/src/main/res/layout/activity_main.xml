@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bkhighscoreempty"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/tvLabelGameTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="2dp"
+        android:fontFamily="@font/luckiest_guy"
+        android:letterSpacing="0"
+        android:text="@string/lblGameTitle"
+        android:textColor="#80FF00"
+        android:textSize="120sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/btnInfo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.67"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnStart"
+        android:layout_width="170dp"
+        android:layout_height="75dp"
+        android:layout_marginEnd="16dp"
+        android:backgroundTint="#80FF00"
+        android:elevation="6dp"
+        android:fontFamily="@font/luckiest_guy"
+        android:text="@string/btnStart"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toStartOf="@+id/btnInfo"
+        app:layout_constraintTop_toTopOf="@+id/btnInfo" />
+
+    <Button
+        android:id="@+id/btnQuit"
+        android:layout_width="170dp"
+        android:layout_height="75dp"
+        android:layout_marginStart="16dp"
+        android:backgroundTint="#80FF00"
+        android:elevation="6dp"
+        android:fontFamily="@font/luckiest_guy"
+        android:text="@string/btnQuit"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="@+id/btnInfo"
+        app:layout_constraintTop_toTopOf="@+id/btnInfo" />
+
+    <Button
+        android:id="@+id/btnInfo"
+        android:layout_width="170dp"
+        android:layout_height="75dp"
+        android:layout_marginBottom="64dp"
+        android:backgroundTint="#80FF00"
+        android:elevation="6dp"
+        android:fontFamily="@font/luckiest_guy"
+        android:text="@string/btnInfo"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/imgTitleKugel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/titlekugel"
+        android:elevation="1dp"
+        android:scaleType="matrix"
+        app:layout_constraintBottom_toBottomOf="@+id/tvLabelGameTitle"
+        app:layout_constraintEnd_toStartOf="@+id/tvLabelGameTitle"
+        app:layout_constraintHorizontal_bias="0.71"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvLabelGameTitle"
+        app:srcCompat="@drawable/kugel_green" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
