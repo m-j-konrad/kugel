@@ -8,16 +8,12 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
-import android.os.Build
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.view.WindowManager
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isGone
-import androidx.core.view.isVisible
-import java.io.File
 import java.lang.Runtime.getRuntime
 import java.util.*
 import kotlin.system.exitProcess
@@ -35,8 +31,6 @@ private lateinit var gameFieldView: GameFieldView
 lateinit var player: GameObject
 // simple little green ball to catch
 lateinit var bonus: GameObject
-// some special bonuses like extra lives
-lateinit var specialBonus: GameObject
 // list of enemies, so we can add and remove red balls
 var enemies: MutableList<GameObject> = mutableListOf(
     GameObject(100, 100, 25, 25,
@@ -45,7 +39,7 @@ var enemies: MutableList<GameObject> = mutableListOf(
 )
 
 // when the title image was clicked it will be movable
-private var titleKugelIsMovable: Boolean = false
+//private var titleKugelIsMovable: Boolean = false
 
 // amount of seconds have to left for next level
 var timePerRound: Long = 20
@@ -123,7 +117,7 @@ class MainActivity: AppCompatActivity(), SensorEventListener {
 
         // set the content to our activity_main
         setContentView(R.layout.activity_main)
-
+        // some phones activated energy saving mode while playing
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         // get display metrics to calculate dpi-independent dps and screen dimensions
@@ -135,12 +129,13 @@ class MainActivity: AppCompatActivity(), SensorEventListener {
         screenWidth = displayMetrics.widthPixels
 
         //configure paint and custom font
-        val customTypeface: Typeface = Typeface.createFromAsset(assets, "luckiest_guy.ttf")
+        //custom font makes problems. not important now.
+        //val customTypeface: Typeface = Typeface.createFromAsset(assets, "luckiest_guy.ttf")
         paintFg.apply {
             color = Color.rgb(128, 255, 0)
             style = Paint.Style.STROKE
             textSize = 18 * dp
-            typeface = customTypeface
+            //typeface = customTypeface
             strokeWidth = 1f*dp
             isAntiAlias = true
             isDither = true
@@ -219,7 +214,7 @@ class MainActivity: AppCompatActivity(), SensorEventListener {
         btnQuit.setOnClickListener { leaveApp() }
         btnStart.setOnClickListener { startGame() }
         btnInfo.setOnClickListener { showInfo() }
-        imgTitleKugel.setOnClickListener { titleKugelIsMovable = !titleKugelIsMovable }
+        //imgTitleKugel.setOnClickListener { titleKugelIsMovable = !titleKugelIsMovable }
 
 
         // timer counting seconds and check game states
@@ -231,15 +226,15 @@ class MainActivity: AppCompatActivity(), SensorEventListener {
                 if (timePlaying > timePerRound) {
                     // time for a new level!
                     // add a new enemy
-                    if (gameLevel < 23) {
-                        val newEnemy = GameObject(1, 1, (20 * dp).toInt(), (20 * dp).toInt(), bmpBallRed, bmpBallShadow)
-                        setRandomPositionOnLeft(newEnemy)
-                        newEnemy.speed = 1f + gameLevel
-                        enemies.add(newEnemy)
-                    }
+                    if (gameLevel < 23) enemies.clear()
+                    val newEnemy = GameObject(1, 1, (20 * dp).toInt(), (20 * dp).toInt(), bmpBallRed, bmpBallShadow)
+                    setRandomPositionOnLeft(newEnemy)
+                    enemies.add(newEnemy)
                     // increase game level
                     gameLevel++
                     if (gameLevel < 7) enemies.last().speed += gameLevel
+                    // avoid first enemy from staying inside bonus when placed unlucky
+                    if (enemies.first() == enemies.last()) enemies.last().dX = -bonus.dX
                     // reset game time for the next level
                     timePlaying = 0
                 }
@@ -317,7 +312,9 @@ class MainActivity: AppCompatActivity(), SensorEventListener {
                     return
                 }
             }
-        } else {/*game is not running? do some cool stuff with title layout*/
+        }
+
+        else {/*game is not running? do some cool stuff with title layout*/
             /* doesn't work yet
         if (titleKugelIsMovable) {
             with (imgTitleKugel) {
