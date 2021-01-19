@@ -10,6 +10,7 @@ import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.Bundle
 import android.util.DisplayMetrics
+import android.view.Window
 import android.view.WindowManager
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
@@ -226,7 +227,7 @@ class MainActivity: AppCompatActivity(), SensorEventListener {
                 if (timePlaying > timePerRound) {
                     // time for a new level!
                     // add a new enemy
-                    if (gameLevel < 23) enemies.clear()
+                    if (gameLevel > 23) enemies.clear()
                     val newEnemy = GameObject(1, 1, (20 * dp).toInt(), (20 * dp).toInt(), bmpBallRed, bmpBallShadow)
                     setRandomPositionOnLeft(newEnemy)
                     enemies.add(newEnemy)
