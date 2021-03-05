@@ -136,7 +136,7 @@
         android:textColor="#8BC34A"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btnBack"
         app:layout_constraintEnd_toEndOf="@+id/lblPlayerName"
         app:layout_constraintTop_toBottomOf="@+id/lblPlayerName" />
 
@@ -155,16 +155,15 @@
         android:id="@+id/btnBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
         android:background="#8BC34A"
         android:text="@string/lblBtnBack"
         android:textColor="#000000"
         android:textStyle="bold"
         app:backgroundTint="#8BC34A"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/editTextTextPersonName"
@@ -173,6 +172,9 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:text="@string/inputPlayerName"
+        android:textColor="#B1DC39"
+        android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/lblPlayerName"
         app:layout_constraintEnd_toEndOf="@+id/btnKugelBlue"
         app:layout_constraintStart_toStartOf="@+id/btnKugelYellow"
