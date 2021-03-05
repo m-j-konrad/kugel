@@ -55,14 +55,20 @@ class GameFieldView(context: Context) : View(context) {
             }
             // game field
             else {
-                drawBitmap(bmpBackground, 0f, 0f, paintFg)
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                    drawBitmap(bmpBackground, 0f, 0f, paintFg)
+                    drawRoundRect(5 * dp, 5 * dp, screenWidth - 5 * dp, 39 * dp, 5 * dp, 5 * dp, paintFg)
+                } else {
+                    drawRect(0f, 0f, screenWidth.toFloat(), screenHeight.toFloat(), paintBg)
+                    drawRect(5 * dp, 5 * dp, screenWidth - 5 * dp, 39 * dp, paintFg)
+                }
 
                 bonus.draw(canvas)
                 enemies.forEach { i -> i.draw(canvas) }
                 player.draw(canvas)
 
-                drawText("$lblLevel: $gameLevel   |   $lblRemainingLifes: ${player.lifes}   |   $lblScore: ${player.score}   |   $lblTapToPause", 20*dp, 25*dp, paintFg)
-                drawRoundRect(5*dp, 5*dp, screenWidth - 5*dp, 39*dp, 5*dp, 5*dp, paintFg)
+                drawText("$lblLevel: $gameLevel   |   $lblRemainingLifes: ${player.lifes}   |   $lblScore: ${player.score}   |   $lblTapToPause", 20 * dp, 25 * dp, paintFg)
+
                 if (!gameIsRunning) {
                     drawBitmap(bmpIcoPause, screenWidth / 2 - 70*dp, screenHeight / 2 - 70*dp, paintFg)
                     drawBitmap(bmpIcoPowerOffSmall, screenWidth - 60*dp, screenHeight - 60*dp, paintFg)

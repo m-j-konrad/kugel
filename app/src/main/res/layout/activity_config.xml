@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bkstoneh"
+    tools:context=".ConfigActivity">
+
+    <ImageButton
+        android:id="@+id/btnKugelYellow"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:background="#00FFFFFF"
+        app:layout_constraintEnd_toStartOf="@+id/btnKugelGreen"
+        app:layout_constraintTop_toBottomOf="@+id/btnKugelPink"
+        app:srcCompat="@drawable/kugel_yellow" />
+
+    <ImageButton
+        android:id="@+id/btnKugelWhite"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:background="#00FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/kugel_white" />
+
+    <ImageButton
+        android:id="@+id/btnKugelBlack"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:background="#00FFFFFF"
+        app:layout_constraintEnd_toStartOf="@+id/btnKugelWhite"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/kugel_black" />
+
+    <ImageButton
+        android:id="@+id/btnKugelBlue"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="8dp"
+        android:background="#00FFFFFF"
+        app:layout_constraintEnd_toEndOf="@+id/btnKugelWhite"
+        app:layout_constraintTop_toBottomOf="@+id/btnKugelWhite"
+        app:srcCompat="@drawable/kugel_blue" />
+
+    <ImageButton
+        android:id="@+id/btnKugelCyan"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:background="#00FFFFFF"
+        app:layout_constraintEnd_toStartOf="@+id/btnKugelBlue"
+        app:layout_constraintTop_toBottomOf="@+id/btnKugelBlack"
+        app:srcCompat="@drawable/kugel_cyan" />
+
+    <ImageButton
+        android:id="@+id/btnKugelGreen"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:background="#00FFFFFF"
+        app:layout_constraintEnd_toStartOf="@+id/btnKugelCyan"
+        app:layout_constraintTop_toBottomOf="@+id/btnKugelRed"
+        app:srcCompat="@drawable/kugel_green" />
+
+    <ImageButton
+        android:id="@+id/btnKugelPink"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:background="#00FFFFFF"
+        android:scaleType="center"
+        app:layout_constraintEnd_toStartOf="@+id/btnKugelRed"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/kugel_pink" />
+
+    <ImageButton
+        android:id="@+id/btnKugelRed"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:background="#00FFFFFF"
+        app:layout_constraintEnd_toStartOf="@+id/btnKugelBlack"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/kugel_red" />
+
+    <TextView
+        android:id="@+id/lblEnemyColor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        android:text="@string/lblKugelColor"
+        android:textColor="#8BC34A"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/lblPlayerName"
+        app:layout_constraintEnd_toStartOf="@+id/btnKugelYellow"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/lblPlayerName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lblPlayName"
+        android:textColor="#8BC34A"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/lblScreenBrightness"
+        app:layout_constraintEnd_toEndOf="@+id/lblEnemyColor"
+        app:layout_constraintTop_toBottomOf="@+id/lblEnemyColor" />
+
+    <TextView
+        android:id="@+id/lblScreenBrightness"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lblScreenBrightness"
+        android:textColor="#8BC34A"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/lblPlayerName"
+        app:layout_constraintTop_toBottomOf="@+id/lblPlayerName" />
+
+    <SeekBar
+        android:id="@+id/seekbarBrightness"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:max="100"
+        android:progress="50"
+        app:layout_constraintBottom_toBottomOf="@+id/lblScreenBrightness"
+        app:layout_constraintEnd_toEndOf="@+id/btnKugelWhite"
+        app:layout_constraintStart_toStartOf="@+id/btnKugelYellow"
+        app:layout_constraintTop_toTopOf="@+id/lblScreenBrightness" />
+
+    <Button
+        android:id="@+id/btnBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:background="#8BC34A"
+        android:text="@string/lblBtnBack"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        app:backgroundTint="#8BC34A"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/editTextTextPersonName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="@string/inputPlayerName"
+        app:layout_constraintBottom_toBottomOf="@+id/lblPlayerName"
+        app:layout_constraintEnd_toEndOf="@+id/btnKugelBlue"
+        app:layout_constraintStart_toStartOf="@+id/btnKugelYellow"
+        app:layout_constraintTop_toTopOf="@+id/lblPlayerName" />
+</androidx.constraintlayout.widget.ConstraintLayout>

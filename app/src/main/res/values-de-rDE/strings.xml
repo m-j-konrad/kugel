@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Kugel</string>
-    <string name="inputPlayerName">Player One</string>
+    <string name="inputPlayerName">Kugelspieler</string>
     <string name="lblGameTitle">Kugel</string>
     <string name="btnInfo">Info</string>
     <string name="btnQuit">Beenden</string>
@@ -21,21 +21,31 @@
     <string name="lblBestHighscore">Deine beste Punktzahl war bisher</string>
     <string name="lblYouCanDoBetter">Das kannst du besser!</string>
     <string name="lblNextLevel">Achtung! Nächster Ball</string>
-    <string name="infoMessage">Kugel - ein kleines Spiel\nerdacht und programmiert von M. J. Konrad\n\n
-        Zunächst möchte ich meiner Familie und meinen Freunden danken, die dieses Spiel geduldig und
+    <string name="infoMessage">Kugel - ein kleines Spiel\nerdacht und programmiert von M. J. Konrad\n\n  ANLEITUNG\n\n
+        Zum Spielen halte dein Handy so, als läge die Kugel darauf. Bewege das Handy und die Kugel rollt!
+        Versuche so viele kleine grüne Kugeln wie möglich einzusammen, um Punkte zu bekommen.
+        Vermeide allerdings die ""bösen"" Kugeln zu berühren, die von Zeit zu Zeit am linken Rand
+        des Spielfeldes auftauchen. Immer wenn du eine solche berührst,
+        verlierst du ein Leben. Wenn du alle drei Leben verloren hast ist das Spiel zuende.\nWenn du im Menü auf die Zahnräder tippst kannst du die Farbe der
+        ""bösen"" Kugeln einstellen, die Helligkeit des Spiels anpassen und deinen Namen eingeben.
+        \n\n  DANK\n\nZunächst möchte ich meiner Familie und meinen Freunden danken, die dieses Spiel geduldig und
         gewissenhaft getestet haben.\n
         Speziellen Dank natürlich an Ali, der mir geholfen hat, das Spiel in den PlayStore zu
-        bekommen!\n\n
-        Diese App ist frei (wie in `Freiheit`). Damit das so bleibt wird sie beschützt von der\n
+        bekommen!\n\n  LIZENZ:\n\n
+        Diese App ist frei (wie in ""Freiheit""). Damit das so bleibt wird sie beschützt von der\n
         GNU General Public License v.3.\nDu akzeptierst sie, wenn du spielst!\n\n
-        Und jetzt: Gebt euch die Kugel oder bleibt am Ball :-)\n\n\n
-Kugel Copyright © 2020 by Marcel Jérôme Konrad
-        \n You can find the sources at\n
-        https://github.com/m-j-konrad/kugel
-\n\n
-Dieses Programm ist freie Software. Sie können es unter den Bedingungen der GNU General Public License, wie von der Free Software Foundation veröffentlicht, weitergeben und/oder modifizieren, entweder gemäß Version 3 der Lizenz oder (nach Ihrer Option) jeder späteren Version.
-\n\n
-Die Veröffentlichung dieses Programms erfolgt in der Hoffnung, daß es Ihnen von Nutzen sein wird, aber OHNE IRGENDEINE GARANTIE, sogar ohne die implizite Garantie der MARKTREIFE oder der VERWENDBARKEIT FÜR EINEN BESTIMMTEN ZWECK. Details finden Sie in der GNU General Public License unter
-\nhttp://www.gnu.org/licenses/
+        Und jetzt: Geb dir die Kugel oder bleib am Ball :-)\n\n\nKugel Copyright © 2020 by Marcel Jérôme Konrad
+        \n Den Quellcode gibt es hier:\n
+        https://github.com/m-j-konrad/kugel\n\nDieses Programm ist freie Software. Du kannst es unter den Bedingungen der GNU General Public
+        License, wie von der Free Software Foundation veröffentlicht, weitergeben und/oder
+        modifizieren, entweder gemäß Version 3 der Lizenz oder (wenn gewünscht) jeder späteren Version.\n\nDie Veröffentlichung dieses Programms erfolgt in der Hoffnung, daß es dir von Nutzen sein wird,
+        aber OHNE IRGENDEINE GARANTIE, sogar ohne die implizite Garantie der MARKTREIFE oder der
+        VERWENDBARKEIT FÜR EINEN BESTIMMTEN ZWECK. Details findest du in der GNU General Public
+        License unter\nhttp://www.gnu.org/licenses/
     </string>
+    <string name="btnSettingsDescription">Einstellungen</string>
+    <string name="lblBtnBack">zurück</string>
+    <string name="lblKugelColor">Farbe gefährlicher Kugeln</string>
+    <string name="lblScreenBrightness">Helligkeit</string>
+    <string name="lblPlayName">"Dein Name: "</string>
 </resources>

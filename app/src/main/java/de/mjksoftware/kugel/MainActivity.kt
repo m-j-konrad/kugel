@@ -2,6 +2,7 @@ package de.mjksoftware.kugel
 
 
 import android.content.Context
+import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.graphics.*
 import android.hardware.Sensor
@@ -10,12 +11,10 @@ import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.Bundle
 import android.util.DisplayMetrics
-import android.view.Window
 import android.view.WindowManager
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import java.lang.Runtime.getRuntime
 import java.util.*
 import kotlin.system.exitProcess
 
@@ -34,9 +33,9 @@ lateinit var player: GameObject
 lateinit var bonus: GameObject
 // list of enemies, so we can add and remove red balls
 var enemies: MutableList<GameObject> = mutableListOf(
-    GameObject(100, 100, 25, 25,
-            Bitmap.createBitmap(25, 25, Bitmap.Config.ARGB_8888),
-            Bitmap.createBitmap(25, 25, Bitmap.Config.ARGB_8888))
+        GameObject(100, 100, 25, 25,
+                Bitmap.createBitmap(25, 25, Bitmap.Config.ARGB_8888),
+                Bitmap.createBitmap(25, 25, Bitmap.Config.ARGB_8888))
 )
 
 // when the title image was clicked it will be movable
@@ -56,6 +55,7 @@ var gameOver: Boolean = false
 var exitGame: Boolean = false
 // for restarting the game. Not first start!
 var startNewGame: Boolean = false
+var screenBrightness: Int = 80
 
 // labels to be translated
 lateinit var lblTimePlaying: String
@@ -75,19 +75,23 @@ lateinit var lblNextLevelIn: String
 var screenWidth: Int = 1
 var screenHeight: Int = 1
 
+// enemy color
+var enemyResID: Int = 0
+
 // all the bitmaps
 lateinit var bmpBackground: Bitmap
-lateinit var  bmpGameOver: Bitmap
-lateinit var  bmpBallGreen: Bitmap
+lateinit var bmpGameOver: Bitmap
+lateinit var bmpBallGreen: Bitmap
 lateinit var bmpBallRed: Bitmap
 lateinit var bmpBallShadow: Bitmap
 lateinit var bmpIcoPowerOff: Bitmap
 lateinit var bmpIcoPowerOffSmall: Bitmap
 lateinit var bmpIcoRestart: Bitmap
-lateinit var  bmpIcoPause: Bitmap
+lateinit var bmpIcoPause: Bitmap
 
 // paint settings
 var paintFg: Paint = Paint()
+var paintBg: Paint = Paint()
 
 // indicates if (x,y) is inside the rectangle (x1,y1)-(x2,y2)
 fun isWithin(x: Int, y: Int, x1: Int, y1: Int, x2: Int, y2: Int): Boolean
@@ -104,7 +108,8 @@ class MainActivity: AppCompatActivity(), SensorEventListener {
     private lateinit var btnQuit: Button
     private lateinit var btnInfo: Button
     private lateinit var imgTitleKugel: ImageView
-
+    private lateinit var btnSettings: ImageButton
+    private var timer = Timer()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -118,9 +123,13 @@ class MainActivity: AppCompatActivity(), SensorEventListener {
 
         // set the content to our activity_main
         setContentView(R.layout.activity_main)
-        // some phones activated energy saving mode while playing
-        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
+        // some phones activated energy saving mode while playing
+        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+
+
+        applyScreenBrightness()
+        
         // get display metrics to calculate dpi-independent dps and screen dimensions
         val displayMetrics = DisplayMetrics()
         windowManager.defaultDisplay.getMetrics(displayMetrics)
@@ -142,46 +151,52 @@ class MainActivity: AppCompatActivity(), SensorEventListener {
             isDither = true
             setShadowLayer(5 * dp, 3 * dp, 3 * dp, Color.rgb(0, 0, 0))
         }
+        paintBg.apply {
+            color = Color.rgb(0, 0, 0)
+            style = Paint.Style.FILL_AND_STROKE
+        }
 
         // load images from resources
+        loadEnemyKugelColor()
+        bmpBallRed = BitmapFactory.decodeResource(resources, enemyResID)
         bmpBallGreen = BitmapFactory.decodeResource(resources, R.drawable.kugel_green)
-        bmpBallRed = BitmapFactory.decodeResource(resources, R.drawable.kugel_red)
         bmpBallShadow = BitmapFactory.decodeResource(resources, R.drawable.kugel_shadow)
         bmpBackground = BitmapFactory.decodeResource(resources, R.drawable.bkstonehwarning)
         bmpGameOver = BitmapFactory.decodeResource(resources, R.drawable.bkgameover)
         bmpIcoPowerOff = BitmapFactory.decodeResource(resources, R.drawable.icopoweroff)
         bmpIcoRestart = BitmapFactory.decodeResource(resources, R.drawable.icorestart)
         bmpIcoPause = BitmapFactory.decodeResource(resources, R.drawable.icopause)
+
         // resize icons
         bmpIcoPowerOffSmall = Bitmap.createScaledBitmap(
-            bmpIcoPowerOff,
-            (40 * dp).toInt(),
-            (40 * dp).toInt(),
-            true
+                bmpIcoPowerOff,
+                (40 * dp).toInt(),
+                (40 * dp).toInt(),
+                true
         )
         bmpIcoPowerOff = Bitmap.createScaledBitmap(
-            bmpIcoPowerOff,
-            (150 * dp).toInt(),
-            (150 * dp).toInt(),
-            true
+                bmpIcoPowerOff,
+                (150 * dp).toInt(),
+                (150 * dp).toInt(),
+                true
         )
         bmpIcoRestart = Bitmap.createScaledBitmap(
-            bmpIcoRestart,
-            (150 * dp).toInt(),
-            (150 * dp).toInt(),
-            true
+                bmpIcoRestart,
+                (150 * dp).toInt(),
+                (150 * dp).toInt(),
+                true
         )
         bmpIcoPause = Bitmap.createScaledBitmap(
-            bmpIcoPause,
-            (140 * dp).toInt(),
-            (140 * dp).toInt(),
-            true
+                bmpIcoPause,
+                (140 * dp).toInt(),
+                (140 * dp).toInt(),
+                true
         )
 
         player = GameObject(
-            screenWidth / 2, screenHeight / 2,
+                screenWidth / 2, screenHeight / 2,
                 (35 * dp).toInt(), (35 * dp).toInt(),
-            bmpBallGreen, bmpBallShadow
+                bmpBallGreen, bmpBallShadow
         )
 
         bonus = GameObject(0, 0, (15 * dp).toInt(), (15 * dp).toInt(), bmpBallGreen, bmpBallShadow)
@@ -206,6 +221,7 @@ class MainActivity: AppCompatActivity(), SensorEventListener {
         btnStart = findViewById(R.id.btnStart)
         btnQuit = findViewById(R.id.btnQuit)
         btnInfo = findViewById(R.id.btnInfo)
+        btnSettings = findViewById(R.id.btnSettings)
         imgTitleKugel = findViewById(R.id.imgTitleKugel)
 
         // set game field view
@@ -215,13 +231,23 @@ class MainActivity: AppCompatActivity(), SensorEventListener {
         btnQuit.setOnClickListener { leaveApp() }
         btnStart.setOnClickListener { startGame() }
         btnInfo.setOnClickListener { showInfo() }
+        btnSettings.setOnClickListener {
+            finish()
+            val i = Intent(this@MainActivity, ConfigActivity::class.java)
+            startActivity(i)
+        }
+
+        // stuff to do with the title screen - does not work yet
         //imgTitleKugel.setOnClickListener { titleKugelIsMovable = !titleKugelIsMovable }
 
-
         // timer counting seconds and check game states
-        Timer().scheduleAtFixedRate(object : TimerTask() {
+        timer.schedule(object : TimerTask() {
             override fun run() {
                 if (exitGame) leaveApp()
+                if (gameOver) {
+                    writeHighscore()
+                    gameFieldView.invalidate()
+                }
                 if (startNewGame) startGame()
                 if (gameIsRunning) timePlaying++
                 if (timePlaying > timePerRound) {
@@ -240,16 +266,33 @@ class MainActivity: AppCompatActivity(), SensorEventListener {
                     timePlaying = 0
                 }
             }
-        }, 0, 2000)
+        }, 1000, 2000)
+    }
 
 
+    override fun onResume() {
+        super.onResume()
+
+        loadState()
+        mSensorManager.registerListener(
+                this, sensorAccelerometer,
+                SensorManager.SENSOR_DELAY_GAME
+        )
+    }
+
+
+    override fun onPause() {
+        super.onPause()
+
+        saveState()
+        gameIsRunning = false
+        mSensorManager.unregisterListener(this)
     }
 
 
     private fun leaveApp() {
         writeHighscore()
         finish()
-        getRuntime().halt(0)
         exitProcess(0)
         // I really tried all - the app still remains in the background :-(
     }
@@ -257,7 +300,7 @@ class MainActivity: AppCompatActivity(), SensorEventListener {
 
     private fun showInfo() {
         val msg = AlertDialog.Builder(this)
-        with (msg) {
+        with(msg) {
             setIcon(R.drawable.kugel_green)
             setNeutralButton("okay", null)
             setTitle(getString(R.string.lblGameTitle))
@@ -270,11 +313,7 @@ class MainActivity: AppCompatActivity(), SensorEventListener {
     private fun startGame() {
         //gameFieldView.systemUiVisibility = SYSTEM_UI_FLAG_FULLSCREEN
         if (!startNewGame) setContentView(gameFieldView)
-        else {
-            // kill all enemies
-            enemies.clear()
-            // save score
-        }
+        else enemies.clear()  // kill all enemies
 
         writeHighscore()
         startNewGame = false
@@ -288,10 +327,11 @@ class MainActivity: AppCompatActivity(), SensorEventListener {
 
 
     override fun onSensorChanged(event: SensorEvent) {
-        val x: Int = (event.values[1] * dp).toInt()
-        val y: Int = (event.values[0] * dp).toInt()
-
+        // don't do anything when the game is not running
         if (gameIsRunning) {
+            val x: Int = (event.values[1] * dp).toInt()
+            val y: Int = (event.values[0] * dp).toInt()
+
             player.move(x, y)
             bonus.move()
 
@@ -302,64 +342,82 @@ class MainActivity: AppCompatActivity(), SensorEventListener {
 
             for (i in enemies.indices) enemies.elementAt(i).move()
 
-            for (i in enemies.indices) {
-                if (collision(player, enemies.elementAt(i))) {
-                    player.lifes--
-                    enemies.removeAt(i)
-                    if (player.lifes == 0) {
-                        gameIsRunning = false
-                        gameOver = true
+            if (enemies.isNotEmpty())
+                for (i in enemies.indices) {
+                    if (collision(player, enemies.elementAt(i))) {
+                        player.lifes--
+                        enemies.removeAt(i)
+                        if (player.lifes == 0) {
+                            gameIsRunning = false
+                            gameOver = true
+                        }
+                        return
                     }
-                    return
                 }
-            }
+            // game field changed -> has to be redrawn
+            gameFieldView.invalidate()
         }
-
-        else {/*game is not running? do some cool stuff with title layout*/
-            /* doesn't work yet
-        if (titleKugelIsMovable) {
-            with (imgTitleKugel) {
-                left += x
-                top += y
-                if (left < 0) left = 0
-                if (top < 0) top = 0
-                if (left + width > 1000) left = 1000 - width
-                if (top + height > 1000) top = 1000 - height
-            }*/
-        }
-
-        gameFieldView.invalidate()
-    }
-
-
-    override fun onResume() {
-        super.onResume()
-        mSensorManager.registerListener(
-            this, sensorAccelerometer,
-            SensorManager.SENSOR_DELAY_GAME
-        )
-    }
-
-
-    override fun onPause() {
-        super.onPause()
-        mSensorManager.unregisterListener(this)
     }
 
 
     override fun onAccuracyChanged(sensor: Sensor, accuracy: Int) {}
 
 
+    private fun saveState() {
+        val prefs = getSharedPreferences("de.mjksoftware.Kugel", Context.MODE_PRIVATE)
+        val editor = prefs.edit()
+        editor.apply {
+            putLong("score", player.score)
+            putInt("level", gameLevel)
+            putInt("lifes", player.lifes)
+            putInt("enemy_res_id", enemyResID)
+            putInt("screen_brightness", screenBrightness)
+            putString("player_name", player.name)
+        }.apply()
+    }
+
+
+    private fun loadState() {
+        val prefs = getSharedPreferences("de.mjksoftware.Kugel", Context.MODE_PRIVATE)
+        prefs.apply {
+            getLong("score", player.score)
+            getInt("level", gameLevel)
+            getInt("lifes", player.lifes)
+            getInt("enemy_res_id", enemyResID)
+            getInt("screen_brightness", screenBrightness)
+            getString("player_name", player.name)
+        }
+        applyScreenBrightness()
+    }
+
+
     private fun writeHighscore() {
-        // editor for preferences (highscore)
-        val prefs = getSharedPreferences("Kugel", Context.MODE_PRIVATE)
+        val prefs = getSharedPreferences("de.mjksoftware.Kugel", Context.MODE_PRIVATE)
         val editor = prefs.edit()
 
         oldHighscore = prefs.getLong("highscore", 0)
         if(player.score > oldHighscore) {
             editor.putLong("highscore", player.score)
-            editor.apply()
+            // use commit() instead of apply() to write the data immediately! My mom just lost her score!!
+            editor.commit()
             oldHighscore = player.score
         }
+    }
+
+
+    private fun loadEnemyKugelColor() {
+        // editor for preferences (highscore)
+        val prefs = getSharedPreferences("de.mjksoftware.Kugel", Context.MODE_PRIVATE)
+        enemyResID = prefs.getInt("enemy_res_id", R.drawable.kugel_red)
+    }
+
+
+    private fun applyScreenBrightness() {
+        val prefs = getSharedPreferences("de.mjksoftware.Kugel", Context.MODE_PRIVATE)
+        screenBrightness = prefs.getInt("screen_brightness", 50)
+
+        val lp: WindowManager.LayoutParams = window.attributes
+        lp.screenBrightness = screenBrightness.toFloat() / 100
+        window.attributes = lp
     }
 }

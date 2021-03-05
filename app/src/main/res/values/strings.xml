@@ -19,11 +19,17 @@
     <string name="lblBestHighscore">Your best score was</string>
     <string name="lblYouCanDoBetter">You can do better!</string>
     <string name="lblNextLevel">Attention! Next ball!</string>
-    <string name="inputPlayerName">Player One</string>
+    <string name="inputPlayerName">Kugel Player</string>
     <string name="infoMessage">Kugel - A little game\nwritten by M. J. Konrad\n\n
+          HOW TO PLAY\n\n
+        Hold your mobile as if the ball lies on it and move it - the ball will roll!
+        Now try to catch as many green balls as you can and avoid the ""bad"" ones that appear on the left from time to time. Each time
+        you touch one of these you loose a life. After loosing three lifes the game is over.\n\n  THANKS\n\n
         I want to thank my family and friends for patient and carefully game testing.\n
         Special thanks to Ali for helping me to get into the PlayStore :-)\n\n
-        This game is free (as in ""Freedom""), licensed under the GNU General Public License 3. If you play this game, you accept it!\n\n\n
+          LICENSE\n\n
+        This game is free (as in ""Freedom""), licensed under the GNU General Public License 3.
+        If you play this game, you accept it!\n\n\n
 Kugel Copyright © 2020 by Marcel Jérôme Konrad
 \n\n
     This program is free software: you can redistribute it and/or modify
@@ -37,4 +43,9 @@ Kugel Copyright © 2020 by Marcel Jérôme Konrad
     GNU General Public License at
 \nhttps://www.gnu.org/licenses/ for more details
     </string>
+    <string name="btnSettingsDescription">settings</string>
+    <string name="lblKugelColor">enemy color</string>
+    <string name="lblScreenBrightness">screen brightness</string>
+    <string name="lblBtnBack">back</string>
+    <string name="lblPlayName">Your name:</string>
 </resources>

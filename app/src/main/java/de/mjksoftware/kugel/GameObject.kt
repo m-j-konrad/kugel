@@ -15,12 +15,13 @@ class GameObject(l: Int, t: Int, w: Int, h: Int, bitmap: Bitmap, shadow: Bitmap)
     var speed: Float = 2f
     var dX: Int = -1
     var dY: Int = 1
+    var name: String = "name"
 
     private var bitmapScaled: Bitmap = Bitmap.createScaledBitmap(bitmap, width, height, true)
     private var shadowScaled: Bitmap = Bitmap.createScaledBitmap(shadow, width, height, true)
 
     fun draw(canvas: Canvas) {
-        canvas.drawBitmap(shadowScaled, left + 5*dp, top + 5*dp, paintFg)
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) canvas.drawBitmap(shadowScaled, left + 5*dp, top + 5*dp, paintFg)
         canvas.drawBitmap(bitmapScaled, left.toFloat(), top.toFloat(), paintFg)
     }
 
