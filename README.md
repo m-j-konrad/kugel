@@ -1,9 +1,12 @@
 KUGEL
 
-is a little Android game written with Kotlin.
-There's a green ball ("Kugel" in German) moved by acceleration sensor.
-You have to catch other smaler green balls and avoid collisions with
+is a little Android game written in Kotlin.
+There's a green ball ("Kugel" in german) moved by acceleration sensor.
+You have to catch other smaller green balls and avoid collisions with
 the red ones coming into the game one atfer another.
+
+Now it is possible to change the color of the enemy balls and the screen brightness.
+The state is saved when the app is in the background and reloaded if the app comes back.
 
 It's fun, I think!
 I'm just learning and this is what I get out of Android using
