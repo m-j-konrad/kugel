@@ -33,7 +33,6 @@ class ConfigActivity : AppCompatActivity() {
 
         // some phones activated energy saving mode while playing
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
-        // ...and wanted to change brightness...
 
 
         btnBack = findViewById(R.id.btnBack)
@@ -46,6 +45,8 @@ class ConfigActivity : AppCompatActivity() {
         btnKugelGreen = findViewById(R.id.btnKugelGreen)
         btnKugelPink = findViewById(R.id.btnKugelPink)
         btnKugelRed = findViewById(R.id.btnKugelRed)
+
+        getScreenBrightness()
 
         btnBack.setOnClickListener {
             navigateBackToMainActivity()
@@ -74,6 +75,7 @@ class ConfigActivity : AppCompatActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
 
+        startNewGame = true
         navigateBackToMainActivity()
     }
 
@@ -91,6 +93,7 @@ class ConfigActivity : AppCompatActivity() {
         startActivity(i)
     }
 
+
     private fun unScaleAll() {
         btnKugelYellow.scaleType = ImageView.ScaleType.CENTER
         btnKugelWhite.scaleType =  ImageView.ScaleType.CENTER
@@ -107,5 +110,13 @@ class ConfigActivity : AppCompatActivity() {
         val lp: WindowManager.LayoutParams = window.attributes
         lp.screenBrightness = screenBrightness.toFloat() / 100
         window.attributes = lp
+    }
+
+
+    private fun getScreenBrightness() {
+        val prefs = getSharedPreferences("de.mjksoftware.Kugel", Context.MODE_PRIVATE)
+        screenBrightness = prefs.getInt("screen_brightness", 50)
+        seekbarBrightness.progress = screenBrightness
+        applyScreenBrightness()
     }
 }

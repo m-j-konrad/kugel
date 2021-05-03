@@ -127,7 +127,6 @@ class MainActivity: AppCompatActivity(), SensorEventListener {
         // some phones activated energy saving mode while playing
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
 
-
         applyScreenBrightness()
         
         // get display metrics to calculate dpi-independent dps and screen dimensions
@@ -240,15 +239,20 @@ class MainActivity: AppCompatActivity(), SensorEventListener {
         // stuff to do with the title screen - does not work yet
         //imgTitleKugel.setOnClickListener { titleKugelIsMovable = !titleKugelIsMovable }
 
+
+        ////////////////////////////////////////////////////////////////////////////////////////////
+        // TIMER
+        ////////////////////////////////////////////////////////////////////////////////////////////
         // timer counting seconds and check game states
         timer.schedule(object : TimerTask() {
             override fun run() {
                 if (exitGame) leaveApp()
-                if (gameOver) {
-                    writeHighscore()
-                    gameFieldView.invalidate()
-                }
                 if (startNewGame) startGame()
+                if (gameOver) {
+                    gameFieldView.invalidate()
+                    writeHighscore()
+                    startNewGame = true
+                }
                 if (gameIsRunning) timePlaying++
                 if (timePlaying > timePerRound) {
                     // time for a new level!
@@ -267,6 +271,13 @@ class MainActivity: AppCompatActivity(), SensorEventListener {
                 }
             }
         }, 1000, 2000)
+    }
+
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+
+        leaveApp()
     }
 
 
