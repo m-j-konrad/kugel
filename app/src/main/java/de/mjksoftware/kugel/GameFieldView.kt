@@ -49,9 +49,9 @@ class GameFieldView(context: Context) : View(context) {
                 drawText("$lblYouHave ${player.score} $lblPoints!", screenWidth / 2 - 120*dp, screenHeight  / 2 - 30*dp, paintFg)
                 drawText("$lblYourHighestScoreWas $oldHighscore.", screenWidth / 2 - 120*dp, (screenHeight  / 2).toFloat(), paintFg)
                 if (player.score > oldHighscore)
-                    drawText(lblCongratulations, screenWidth / 2 - 120*dp, (screenHeight  / 2 + 30*dp).toFloat(), paintFg)
+                    drawText(lblCongratulations, screenWidth / 2 - 120*dp, (screenHeight  / 2 + 30*dp), paintFg)
                 else
-                    drawText(lblYouCanDoBetter, screenWidth / 2 - 120*dp, (screenHeight  / 2 + 30*dp).toFloat(), paintFg)
+                    drawText(lblYouCanDoBetter, screenWidth / 2 - 120*dp, (screenHeight  / 2 + 30*dp), paintFg)
             }
             // game field
             else {

@@ -55,6 +55,7 @@ var gameOver: Boolean = false
 var exitGame: Boolean = false
 // for restarting the game. Not first start!
 var startNewGame: Boolean = false
+//screen brightness will be loaded
 var screenBrightness: Int = 80
 
 // labels to be translated
@@ -250,8 +251,6 @@ class MainActivity: AppCompatActivity(), SensorEventListener {
                 if (startNewGame) startGame()
                 if (gameOver) {
                     gameFieldView.invalidate()
-                    writeHighscore()
-                    startNewGame = true
                 }
                 if (gameIsRunning) timePlaying++
                 if (timePlaying > timePerRound) {
@@ -329,11 +328,11 @@ class MainActivity: AppCompatActivity(), SensorEventListener {
         writeHighscore()
         startNewGame = false
         gameOver = false
+        gameIsRunning = true
         timePlaying = 0
+        gameLevel = 1
         player.lifes = 3
         player.score = 0
-        gameLevel = 1
-        gameIsRunning = true
     }
 
 
